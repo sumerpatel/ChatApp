@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "486291824641",
+    "firebase_url": "https://chatapplication-1cb5c.firebaseio.com",
+    "project_id": "chatapplication-1cb5c",
+    "storage_bucket": "chatapplication-1cb5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486291824641:android:9cee7d921e4420de",
+        "android_client_info": {
+          "package_name": "com.example.sumerpatel.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486291824641-221ssvhs5ina4m08o639dnhbqq5bj3rr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgVnmYZl1kD59_XC5o-jF4bE3OCQKGHdo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

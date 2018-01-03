@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="type_your_message">Type a message</string>
+    <string name="NoRecent">No recent</string>
 </resources>
