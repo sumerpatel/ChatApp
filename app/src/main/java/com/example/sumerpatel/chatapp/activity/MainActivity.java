@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(PASSWORD, pass);
                 editor.putBoolean(FIRSTRUN, true);
 
-                editor.commit();
+                editor.apply();
 
                 if (user.equals("")) {
                     username.setError("can't be blank");
                 } else if (pass.equals("")) {
                     password.setError("can't be blank");
                 } else {
-                    String url = "https://chatapplication-1cb5c.firebaseio.com/users.json";
+                    String url = "https://chatapp-f3ccb.firebaseio.com/users.json";
                     final ProgressDialog pd = new ProgressDialog(MainActivity.this);
                     pd.setMessage("Loading...");
                     pd.show();
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, "incorrect password", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
+                                    Log.e("MainActivity","Exception");
                                     e.printStackTrace();
                                 }
                             }
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            System.out.println("" + volleyError);
+                            Log.e("MainActivity", "Error : " + volleyError);
                             pd.dismiss();
                         }
                     });

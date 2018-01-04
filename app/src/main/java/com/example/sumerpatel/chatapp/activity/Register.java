@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,16 +70,18 @@ public class Register extends AppCompatActivity {
                     pd.setMessage("Loading...");
                     pd.show();
 
-                    String url = "https://chatapplication-1cb5c.firebaseio.com/users.json";
+                    String url = "https://chatapp-f3ccb.firebaseio.com/users.json";
 
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
-                            Firebase reference = new Firebase("https://chatapplication-1cb5c.firebaseio.com/users");
+                            Firebase reference = new Firebase("https://chatapp-f3ccb.firebaseio.com/users");
 
                             if (s.equals("null")) {
                                 reference.child(user).child("password").setValue(pass);
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(Register.this, MainActivity.class));
+                                finish();
                             } else {
                                 try {
                                     JSONObject obj = new JSONObject(s);
@@ -87,6 +90,7 @@ public class Register extends AppCompatActivity {
                                         reference.child(user).child("password").setValue(pass);
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(Register.this, MainActivity.class));
+                                        finish();
                                     } else {
                                         Toast.makeText(Register.this, "username already exists", Toast.LENGTH_LONG).show();
                                     }
@@ -102,7 +106,7 @@ public class Register extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            System.out.println("" + volleyError);
+                            Log.e("Register","Error : " + volleyError);
                             pd.dismiss();
                         }
                     });

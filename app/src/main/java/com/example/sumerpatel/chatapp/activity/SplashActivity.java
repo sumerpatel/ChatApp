@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,12 +32,14 @@ public class SplashActivity extends AppCompatActivity {
 
         final SharedPreferences settings = getSharedPreferences("MyPrefs", 0);
         boolean firstRun = settings.getBoolean("FirstRun", false);
-        if (firstRun == false) {
+        Log.e("Splash", "First Run : " + firstRun);
+        if (!firstRun) {
             Intent i = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(i);
             finish();
         } else {
-            String url = "https://chatapplication-1cb5c.firebaseio.com/users.json";
+            //String url = "https://chatapplication-1cb5c.firebaseio.com/users.json";
+            String url = "https://chatapp-f3ccb.firebaseio.com/users.json";
             final ProgressDialog pd = new ProgressDialog(SplashActivity.this);
             pd.setMessage("Loading...");
             pd.show();

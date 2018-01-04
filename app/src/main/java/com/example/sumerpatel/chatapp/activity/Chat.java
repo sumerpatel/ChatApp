@@ -72,12 +72,13 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2, reference3;
-    TextView time1, time2, txtMsg1, txtMsg2, location1, location2;
+    TextView time1, time2, txtMsg1, txtMsg2, location1, location2, tvTitle;
     ImageView uploadImage1, uploadImage2, messageStatus;
     Notification notification;
     Uri uri;
     long[] v = {500, 1000};
     int count, i;
+    String titleName = "";
     StorageReference storageRef, mountainsRef;
     FirebaseStorage storage;
     DatabaseReference databaseRef;
@@ -85,7 +86,6 @@ public class Chat extends AppCompatActivity {
     NotificationManager notificationManager;
     Toolbar toolbar;
     Location currentLocation;
-    TextCrawler textCrawler;
     private boolean sentToSettings = false;
     private SharedPreferences permissionStatus;
 
@@ -93,26 +93,31 @@ public class Chat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        context = Chat.this;
         layout = (LinearLayout) findViewById(R.id.layout1);
         sendButton = (ImageView) findViewById(R.id.sendButton);
         messageArea = (EditText) findViewById(R.id.messageArea);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         emojiButton = (ImageView) findViewById(R.id.emojiButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvTitle = (TextView) findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getIntent().getStringExtra("UserPosition"));
-        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
+        titleName = getIntent().getStringExtra("UserPosition");
+        titleName = titleName.substring(0,1).toUpperCase() + titleName.substring(1).toLowerCase();
+        tvTitle.setText(titleName);
+        /*getSupportActionBar().setTitle(titleName);
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));*/
 
         permissionStatus = getSharedPreferences("permissionStatus", MODE_PRIVATE);
 
         storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://chatapplication-1cb5c.appspot.com");//.child("ic_launcher.png");
+        storageRef = storage.getReferenceFromUrl("gs://chatapp-f3ccb.appspot.com");//.child("ic_launcher.png");
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://chatapplication-1cb5c.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
-        reference2 = new Firebase("https://chatapplication-1cb5c.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
+        reference1 = new Firebase("https://chatapp-f3ccb.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
+        reference2 = new Firebase("https://chatapp-f3ccb.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
         //reference3 = new Firebase("https://chatapplication-1cb5c.firebaseio.com/messages/" + UserDetails.time);
 
         messageArea.setOnTouchListener(new View.OnTouchListener() {

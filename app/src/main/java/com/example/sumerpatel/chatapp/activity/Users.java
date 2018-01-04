@@ -6,10 +6,14 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,6 +27,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sumerpatel.chatapp.Manifest;
 import com.example.sumerpatel.chatapp.R;
+import com.example.sumerpatel.chatapp.adapter.AdapterUsers;
+import com.example.sumerpatel.chatapp.interfaces.RecyclerViewClickListener;
 import com.example.sumerpatel.chatapp.utils.UserDetails;
 
 import org.json.JSONException;
@@ -39,9 +45,11 @@ public class Users extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_FINE_LOCATION,
     };
-    ListView usersList;
+//    ListView usersList;
+    RecyclerView usersList;
     TextView noUsersText;
-    ArrayList<String> al = new ArrayList<>();
+    ArrayList<String> arrayList = new ArrayList<>();
+    AdapterUsers adapterUsers;
     int totalUsers = 0;
     ProgressDialog pd;
 
@@ -50,14 +58,17 @@ public class Users extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        usersList = (ListView) findViewById(R.id.usersList);
+//        usersList = (ListView) findViewById(R.id.usersList);
+        usersList = (RecyclerView) findViewById(R.id.usersList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        usersList.setLayoutManager(mLayoutManager);
         noUsersText = (TextView) findViewById(R.id.noUsersText);
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
         pd.show();
 
-        String url = "https://chatapplication-1cb5c.firebaseio.com/users.json";
+        String url = "https://chatapp-f3ccb.firebaseio.com/users.json";
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -74,15 +85,15 @@ public class Users extends AppCompatActivity {
         RequestQueue rQueue = Volley.newRequestQueue(Users.this);
         rQueue.add(request);
 
-        usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UserDetails.chatWith = al.get(position);
+                UserDetails.chatWith = arrayList.get(position);
                 Intent intent = new Intent(Users.this, Chat.class);
                 intent.putExtra("UserPosition", UserDetails.chatWith);
                 startActivity(intent);
             }
-        });
+        });*/
 
         try {
            /* if (ActivityCompat.checkSelfPermission(this, mPermission)
@@ -114,7 +125,7 @@ public class Users extends AppCompatActivity {
                 key = i.next().toString();
 
                 if (!key.equals(UserDetails.username)) {
-                    al.add(key);
+                    arrayList.add(key);
                 }
 
                 totalUsers++;
@@ -124,13 +135,24 @@ public class Users extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        adapterUsers = new AdapterUsers(Users.this, arrayList, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                UserDetails.chatWith = arrayList.get(position);
+                Intent intent = new Intent(Users.this, Chat.class);
+                intent.putExtra("UserPosition", UserDetails.chatWith);
+                startActivity(intent);
+            }
+        });
+
         if (totalUsers <= 1) {
             noUsersText.setVisibility(View.VISIBLE);
             usersList.setVisibility(View.GONE);
         } else {
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, al));
+            //usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList));
+            usersList.setAdapter(adapterUsers);
         }
 
         pd.dismiss();

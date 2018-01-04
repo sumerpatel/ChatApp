@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "486291824641",
-    "firebase_url": "https://chatapplication-1cb5c.firebaseio.com",
-    "project_id": "chatapplication-1cb5c",
-    "storage_bucket": "chatapplication-1cb5c.appspot.com"
+    "project_number": "740821269488",
+    "firebase_url": "https://chatapp-f3ccb.firebaseio.com",
+    "project_id": "chatapp-f3ccb",
+    "storage_bucket": "chatapp-f3ccb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:486291824641:android:9cee7d921e4420de",
+        "mobilesdk_app_id": "1:740821269488:android:9cee7d921e4420de",
         "android_client_info": {
           "package_name": "com.example.sumerpatel.chatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "486291824641-221ssvhs5ina4m08o639dnhbqq5bj3rr.apps.googleusercontent.com",
+          "client_id": "740821269488-17gct6slsp8peqfiu3i9hr0q610ecfed.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAgVnmYZl1kD59_XC5o-jF4bE3OCQKGHdo"
+          "current_key": "AIzaSyBwRhrmDsc59J1aAZxuwyp7YLl2NCKeRc0"
         }
       ],
       "services": {
