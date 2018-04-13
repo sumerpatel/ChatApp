@@ -42,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sumerpatel.chatapp.R;
+import com.example.sumerpatel.chatapp.model.ChatMessage;
 import com.example.sumerpatel.chatapp.service.LocManager;
 import com.example.sumerpatel.chatapp.utils.Constants;
 import com.example.sumerpatel.chatapp.utils.SharedPrefs;
@@ -95,6 +96,7 @@ public class ChatActivity extends AppCompatActivity {
     Handler handler = new Handler();
     private ImageView ivBackButton;
     private LinearLayout layoutProfile;
+    private ChatMessage chatMessage;
 
     /**
      * The Move seek bar. Thread to move seekbar based on the current position
@@ -155,7 +157,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map map = dataSnapshot.getValue(Map.class);
-                String message = map.get("message").toString();
+                /*String message = map.get("message").toString();
                 String userName = map.get("user").toString();
                 String time = map.get("time").toString();
                 String deleteFlag = map.get("deleteFlag").toString();
@@ -163,7 +165,18 @@ public class ChatActivity extends AppCompatActivity {
                 String location = map.get("location").toString();
                 String video = map.get("video").toString();
                 String audio = map.get("audio").toString();
-                String contact = map.get("contact").toString();
+                String contact = map.get("contact").toString();*/
+
+                chatMessage.setMessageText(map.get("message").toString());
+                chatMessage.setUsername(map.get("user").toString());
+                chatMessage.setTime(map.get("time").toString());
+                chatMessage.setDeleteFlag(map.get("deleteFlag").toString());
+                chatMessage.setImageUri(map.get("image").toString());
+                chatMessage.setLocation(map.get("location").toString());
+                chatMessage.setVideoUri(map.get("video").toString());
+                chatMessage.setAudioUri(map.get("audio").toString());
+                chatMessage.setContact(map.get("contact").toString());
+
                 String strKey = dataSnapshot.getKey();
 
                 /*notification = new Notification(R.drawable.ic_launcher,
@@ -174,19 +187,23 @@ public class ChatActivity extends AppCompatActivity {
 
                 uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-                if (userName.equals(Constants.username)) {
-                    if (deleteFlag.equals("0")) {
-                        addMessageBox(/*"You:-\n" + */message, 1, " " + time + " ", strKey, imagePath,
+                if (chatMessage.getUsername().equals(Constants.username)) {
+                    /*if (deleteFlag.equals("0")) {
+                        addMessageBox(*//*"You:-\n" + *//*message, 1, " " + time + " ", strKey, imagePath,
                                 location, video, audio, contact);
+                    }*/
+                    if (chatMessage.getDeleteFlag().equals("0")) {
+                        addMessageBox(1, strKey);
                     }
                 } else {
                     //if (currentlyRunning == true) {
-                    if (deleteFlag.equals("0")) {
-                        if (userName.equals(Constants.chatWith) && currentlyRunning) {
+                    if (chatMessage.getDeleteFlag().equals("0")) {
+                        if (chatMessage.getUsername().equals(Constants.chatWith) && currentlyRunning) {
                             notificationManager.cancelAll();
                             //addMessageBox(Constants.chatWith.substring(0, 1).toUpperCase() + Constants.chatWith.substring(1).toLowerCase() + ":-\n" + message, 2, " " + time + " ", strKey, imagePath, location, video, audio);
-                            addMessageBox(/*titleName + ":-\n" + */message, 2, " " + time + " ", strKey, imagePath,
-                                    location, video, audio, contact);
+                            /*addMessageBox(*//*titleName + ":-\n" + *//*message, 2, " " + time + " ", strKey, imagePath,
+                                    location, video, audio, contact);*/
+                            addMessageBox(2, strKey);
                         } else {
                             //if (!userName.equals(getIntent().getStringExtra("UserPosition"))) {
                             Intent intent = new Intent(ChatActivity.this, MainActivity.class);
@@ -195,12 +212,12 @@ public class ChatActivity extends AppCompatActivity {
                             notification = new Notification.Builder(ChatActivity.this)
                                     //.setContentTitle(getIntent().getStringExtra("UserPosition"))
                                     .setContentTitle(titleName)
-                                    .setContentText(message)
+                                    .setContentText(chatMessage.getMessageText())
                                     .setSmallIcon(R.drawable.ic_launcher)
                                     .setContentIntent(pIntent)
                                     .setAutoCancel(true)
                                     .setStyle(new Notification.InboxStyle()
-                                            .addLine(message))
+                                            .addLine(chatMessage.getMessageText()))
                                     //.setSound(uri)
                                     //.setVibrate(v)
                                     .addAction(R.drawable.ic_smiles_car, "Call", pIntent)
@@ -253,6 +270,7 @@ public class ChatActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvTitle = (TextView) findViewById(R.id.toolbar_title);
         ivBackButton = (ImageView) findViewById(R.id.toolbar_back_icon);
+        chatMessage = new ChatMessage();
     }
 
     private void setuptActionBar() {
@@ -366,12 +384,14 @@ public class ChatActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void addMessageBox(String message, int type, String time, final String strKey, String imagePath, String location,
-                              String video, String audio, String contact) {
+    /*public void addMessageBox(String message, int type, String time, final String strKey, String imagePath, String location,
+                              String video, String audio, String contact) {*/
+
+    public void addMessageBox(int userType, final String strKey) {
 
         RelativeLayout.LayoutParams layoutParamTime = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (type == 1) {
+        if (userType == 1) {
             @SuppressLint("InflateParams") final View view = getLayoutInflater().inflate(R.layout.chat_user_sender, null);
             txtMsgSender = (TextView) view.findViewById(R.id.textview_message);
             txtTimeSender = (TextView) view.findViewById(R.id.textview_time);
@@ -386,12 +406,12 @@ public class ChatActivity extends AppCompatActivity {
             txtMsgSender.setPadding(8, 0, 8, 8);
             locationSender.setPadding(8, 0, 8, 8);
             ivSender = (ImageView) view.findViewById(R.id.share_image);
-            if (!contact.equalsIgnoreCase("")) {
-                txtMsgSender.setText(contact);
+            if (!chatMessage.getContact().equalsIgnoreCase("")) {
+                txtMsgSender.setText(chatMessage.getContact());
             } else {
-                txtMsgSender.setText(message);
+                txtMsgSender.setText(chatMessage.getMessageText());
             }
-            txtTimeSender.setText(time);
+            txtTimeSender.setText(chatMessage.getTime());
             ivPlayAudio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -416,7 +436,7 @@ public class ChatActivity extends AppCompatActivity {
                 Toast.makeText(ChatActivity.this, "Sent", Toast.LENGTH_SHORT).show();
                 messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.message_got_receipt_from_server));
             }*/
-            if (!imagePath.equals("")) {
+            if (!chatMessage.getImageUri().equals("")) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(350, 350);
                 layoutParams.setMargins(0, 48, 0, 0);
                 layoutParamTime.addRule(RelativeLayout.BELOW, R.id.share_image);
@@ -425,7 +445,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 //txtTimeSender.setGravity(Gravity.END|Gravity.BOTTOM|Gravity.RIGHT);
                 ivSender.setLayoutParams(layoutParams);
-                Picasso.with(ChatActivity.this).load(imagePath).into(ivSender);
+                Picasso.with(ChatActivity.this).load(chatMessage.getImageUri()).into(ivSender);
                 /*URL url = null;
                 try {
                     url = new URL(imagePath);
@@ -437,7 +457,7 @@ public class ChatActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }*/
             }
-            if (!location.equals("")) {
+            if (!chatMessage.getLocation().equals("")) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(400, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 48, 0, 0);
                 layoutParamTime.addRule(RelativeLayout.END_OF, R.id.textview_location);
@@ -447,9 +467,9 @@ public class ChatActivity extends AppCompatActivity {
                 locationSender.setLayoutParams(layoutParams);
                 /*textCrawler
                         .makePreview(callback, locationSender.getText().toString());*/
-                locationSender.setText(location);
+                locationSender.setText(chatMessage.getLocation());
             }
-            if (!audio.equals("")) {
+            if (!chatMessage.getAudioUri().equals("")) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(400, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 24, 0, 0);
                 layoutParamTime.addRule(RelativeLayout.BELOW, R.id.audio_layout);
@@ -468,7 +488,7 @@ public class ChatActivity extends AppCompatActivity {
                 handler.removeCallbacks(moveSeekBarThread);
                 handler.postDelayed(moveSeekBarThread, 100); //cal the thread after 100 milliseconds
             }
-            if (!video.equalsIgnoreCase("")) {
+            if (!chatMessage.getVideoUri().equalsIgnoreCase("")) {
 
             }
             layout.addView(view);
@@ -503,9 +523,9 @@ public class ChatActivity extends AppCompatActivity {
             txtMsgReceiver.setMaxWidth(400);
             locationReceiver.setMaxWidth(400);
             txtMsgReceiver.setPadding(8, 0, 8, 8);
-            txtMsgReceiver.setText(message);
-            txtTimeReceiver.setText(time);
-            if (!imagePath.equals("")) {
+            txtMsgReceiver.setText(chatMessage.getMessageText());
+            txtTimeReceiver.setText(chatMessage.getTime());
+            if (!chatMessage.getImageUri().equals("")) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(350, 350);
                 layoutParams.setMargins(0, 48, 0, 0);
                 layoutParamTime = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -514,9 +534,9 @@ public class ChatActivity extends AppCompatActivity {
                 layoutParamTime.addRule(RelativeLayout.BELOW, R.id.uploadImage2);
                 txtTimeReceiver.setLayoutParams(layoutParamTime);
                 ivReceiver.setLayoutParams(layoutParams);
-                Picasso.with(ChatActivity.this).load(imagePath).into(ivReceiver);
+                Picasso.with(ChatActivity.this).load(chatMessage.getImageUri()).into(ivReceiver);
             }
-            if (!location.equals("")) {
+            if (!chatMessage.getLocation().equals("")) {
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(400, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 48, 0, 0);
                 layoutParamTime.addRule(RelativeLayout.END_OF, R.id.textview_location);
@@ -526,7 +546,7 @@ public class ChatActivity extends AppCompatActivity {
                 locationReceiver.setLayoutParams(layoutParams);
                 /*textCrawler
                         .makePreview(callback, locationSender.getText().toString());*/
-                locationReceiver.setText(location);
+                locationReceiver.setText(chatMessage.getLocation());
             }
             layout.addView(view1);
             view1.setOnLongClickListener(new View.OnLongClickListener() {
