@@ -6,13 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,47 +29,102 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sumerpatel.chatapp.R;
-import com.example.sumerpatel.chatapp.utils.UserDetails;
+import com.example.sumerpatel.chatapp.fragments.LoginFragment;
+import com.example.sumerpatel.chatapp.utils.Constants;
+import com.example.sumerpatel.chatapp.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String MyPREFERENCES = "MyPrefs";
-    public static final String USERNAME = "Username";
-    public static final String PASSWORD = "Password";
-    public static final String FIRSTRUN = "FirstRun";
+
     private static final String TAG = MainActivity.class.getSimpleName();
-    TextView register;
-    EditText username, password;
-    Button loginButton;
-    String user, pass;
-    SharedPreferences sharedpreferences;
-    //returns the simple name of the underlying class as given in the source code
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        register = (TextView) findViewById(R.id.register);
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        loginButton = (Button) findViewById(R.id.loginButton);
+        setupActionbar();
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        Utils.startFragment(new LoginFragment(), getFragmentManager(), LoginFragment.class.getName(), R.id.container_layout);
 
-        /*mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+    }
+
+    /**
+     * Setting up topmost header view with dynamic header title.
+     */
+    private void setupActionbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ((TextView) toolbar.findViewById(R.id.toolbar_txt_title)).setText(getString(R.string.app_name));
+        ((TextView) toolbar.findViewById(R.id.toolbar_txt_title)).setTextColor(ContextCompat.getColor(this, R.color.white_with70pacity));
+        ImageView leftIcon = (ImageView) toolbar.findViewById(R.id.action_bar_iv_left);
+        leftIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+}
+
+
+
+
+
+    /*private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
+
+        Log.e(TAG, "Firebase reg id: " + regId);
+
+
+        if (!TextUtils.isEmpty(regId))
+            txtRegId.setText("Firebase Reg Id: " + regId);
+        else
+            txtRegId.setText("Firebase Reg Id is not received yet!");
+    }*/
+
+   /* @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }*/
+
+   /*mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(UserDetails.REGISTRATION_COMPLETE)) {
+                if (intent.getAction().equals(Constants.REGISTRATION_COMPLETE)) {
 
-                    FirebaseMessaging.getInstance().subscribeToTopic(UserDetails.TOPIC_GLOBAL);
+                    FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC_GLOBAL);
 
                     displayFirebaseRegId();
 
-                } else if (intent.getAction().equals(UserDetails.PUSH_NOTIFICATION)) {
+                } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
                     // new push notification is received
 
                     String message = intent.getStringExtra("message");
@@ -74,114 +137,9 @@ public class MainActivity extends AppCompatActivity {
         displayFirebaseRegId();*/
 
 
-        register.setOnClickListener(new View.OnClickListener() {
+        /*register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Register.class));
             }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user = username.getText().toString();
-                pass = password.getText().toString();
-                final SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString(USERNAME, user);
-                editor.putString(PASSWORD, pass);
-                editor.putBoolean(FIRSTRUN, true);
-
-                editor.apply();
-
-                if (user.equals("")) {
-                    username.setError("can't be blank");
-                } else if (pass.equals("")) {
-                    password.setError("can't be blank");
-                } else {
-                    String url = "https://chatapp-f3ccb.firebaseio.com/users.json";
-                    final ProgressDialog pd = new ProgressDialog(MainActivity.this);
-                    pd.setMessage("Loading...");
-                    pd.show();
-
-                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            if (s.equals("null")) {
-                                Toast.makeText(MainActivity.this, "user not found", Toast.LENGTH_LONG).show();
-                            } else {
-                                try {
-                                    JSONObject obj = new JSONObject(s);
-
-                                    if (!obj.has(user)) {
-                                        Toast.makeText(MainActivity.this, "user not found", Toast.LENGTH_LONG).show();
-                                    } else if (obj.getJSONObject(user).getString("password").equals(pass)) {
-                                        UserDetails.username = user;
-                                        UserDetails.password = pass;
-                                        startActivity(new Intent(MainActivity.this, Users.class));
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "incorrect password", Toast.LENGTH_LONG).show();
-                                    }
-                                } catch (JSONException e) {
-                                    Log.e("MainActivity","Exception");
-                                    e.printStackTrace();
-                                }
-                            }
-                            pd.dismiss();
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            Log.e("MainActivity", "Error : " + volleyError);
-                            pd.dismiss();
-                        }
-                    });
-
-                    RequestQueue rQueue = Volley.newRequestQueue(MainActivity.this);
-                    rQueue.add(request);
-                }
-
-            }
-        });
-    }
-
-    /*private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(UserDetails.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
-
-        Log.e(TAG, "Firebase reg id: " + regId);
-
-
-        if (!TextUtils.isEmpty(regId))
-            txtRegId.setText("Firebase Reg Id: " + regId);
-        else
-            txtRegId.setText("Firebase Reg Id is not received yet!");
-    }*/
-
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-   /* @Override
-    protected void onResume() {
-        super.onResume();
-
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(UserDetails.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(UserDetails.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }*/
-}
+        });*/

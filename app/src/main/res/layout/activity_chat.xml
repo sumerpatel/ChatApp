@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/chatbackground"
-    tools:context="com.example.sumerpatel.chatapp.activity.Chat">
+    tools:context="com.example.sumerpatel.chatapp.activity.ChatActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

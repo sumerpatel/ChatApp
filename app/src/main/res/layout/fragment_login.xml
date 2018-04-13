@@ -1,0 +1,82 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBgUniversal"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.sumerpatel.chatapp.fragments.LoginFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:padding="@dimen/margin_8dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_24sp" />
+
+    <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+        android:id="@+id/frag_login_mobile_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20dp"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:layout_marginRight="@dimen/margin_20dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:padding="@dimen/margin_8dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/hint_enter_username"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:text=""
+        android:textSize="@dimen/font_size_20sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_with40pacity" />
+
+    <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+        android:id="@+id/frag_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20dp"
+        android:layout_marginStart="@dimen/margin_20dp"
+        android:layout_marginEnd="@dimen/margin_20dp"
+        android:layout_marginRight="@dimen/margin_20dp"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/margin_8dp"
+        android:hint="@string/hint_enter_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:text="12345"
+        android:textSize="@dimen/font_size_20sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_with40pacity" />
+
+    <com.example.sumerpatel.chatapp.customviews.Font500
+        android:id="@+id/frag_login_loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_20dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/margin_8dp"
+        android:text="@string/login"
+        android:textColor="@color/colorClickables"
+        android:textSize="@dimen/font_size_20sp" />
+
+    <com.example.sumerpatel.chatapp.customviews.Font100
+        android:id="@+id/frag_login_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:textColor="@color/white_with80pacity"
+        android:text="@string/click_here_to_register"
+        android:textSize="@dimen/font_size_20sp" />
+
+</LinearLayout>

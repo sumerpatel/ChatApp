@@ -2,10 +2,20 @@
     <string name="app_name">ChatApp</string>
     <string name="type_your_message">Type a message</string>
     <string name="NoRecent">No recent</string>
-    <string name="enter_password">Enter Password</string>
-    <string name="enter_username">Enter Username</string>
+    <string name="hint_enter_password">Enter Password</string>
+    <string name="hint_enter_username">Enter Mobile Number</string>
     <string name="login">Login</string>
-    <string name="click_here_to_register">Click here to register</string>
+    <string name="btn_register">Register</string>
+    <string name="click_here_to_register">Click here to Register</string>
+    <string name="click_here_to_login">Click here to Login</string>
     <string name="title_menu">Menu</string>
     <string name="no_users_found">No users found!</string>
+
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="remove">Remove</string>
+    <string name="hint_mobnum">Mobile Number</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email ID</string>
+    <string name="hint_password">Password</string>>
 </resources>

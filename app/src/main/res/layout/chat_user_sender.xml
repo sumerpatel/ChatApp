@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rel_layout_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,8 +25,9 @@
             style="@style/chat_text_message_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="Sample \n Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 \n Sample2"
-            android:textSize="16dp" />
+            android:textSize="@dimen/font_size_16sp" />
 
         <TextView
             android:id="@+id/textview_time"
@@ -34,18 +35,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/uploadImage1"
+            android:layout_below="@+id/share_image"
             android:layout_toEndOf="@+id/textview_message"
             android:layout_toRightOf="@+id/textview_message"
             android:text="04:50 Am"
             android:textColor="@android:color/darker_gray"
-            android:textSize="10dp" />
+            android:textSize="@dimen/font_size_10sp" />
 
         <ImageView
-            android:id="@+id/uploadImage1"
+            android:id="@+id/share_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
+
+        <!--<VideoView
+            android:id="@+id/upload_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>-->
 
         <TextView
             android:id="@+id/textview_location"
@@ -54,6 +61,62 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/textview_time"
             android:autoLink="web" />
+
+        <TextView
+            android:id="@+id/textview_contact"
+            style="@style/chat_text_message_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_16sp" />
+
+        <!--<LinearLayout
+            android:id="@+id/video_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/textview_time"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <VideoView
+                android:id="@+id/video_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/audio_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/textview_time"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/play_audio"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                android:src="@drawable/play_audio"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/pause_audio"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:padding="2dp"
+                android:src="@drawable/pause_audio"
+                android:visibility="gone" />
+
+            <SeekBar
+                android:id="@+id/audio_play_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/user_send_status"
@@ -66,6 +129,76 @@
 
     </RelativeLayout>
 </RelativeLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rel_layout_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp"
+            android:background="@drawable/balloon_outgoing_normal">
+
+            &lt;!&ndash;<TextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Person Name or Id"
+                android:visibility="gone" />&ndash;&gt;
+
+            <TextView
+                android:id="@+id/textview_message"
+                style="@style/chat_text_message_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sample \n Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 Sample2 \n Sample2"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/textview_time"
+                style="@style/chat_text_message_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/uploadImage1"
+                android:layout_toEndOf="@+id/textview_message"
+                android:layout_toRightOf="@+id/textview_message"
+                android:text="04:50 Am"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:id="@+id/uploadImage1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/textview_location"
+                style="@style/chat_text_location_url_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/textview_time"
+                android:autoLink="web" />
+
+            <ImageView
+                android:id="@+id/user_send_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/textview_time"
+                android:paddingBottom="5dp"
+                android:src="@drawable/message_got_receipt_from_server" />
+
+        </RelativeLayout>
+    </RelativeLayout>-->
 
 
     <!--

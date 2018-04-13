@@ -32,12 +32,13 @@
         android:src="@drawable/edit_icn"
         android:visibility="gone"/>
 
-    <TextView
+    <com.example.sumerpatel.chatapp.customviews.Font100
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
+        android:textColor="@color/white_with80pacity"
         android:layout_toEndOf="@+id/iv_profile_pic"
         android:text="UserName"
         android:textSize="@dimen/title_text_size" />

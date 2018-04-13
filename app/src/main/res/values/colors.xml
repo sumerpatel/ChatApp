@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#030A0F</color>
+    <color name="colorPrimaryDark">#03080D</color>
+    <color name="colorAccent">#FFFFFF</color>
 
-
-    <color name="white">@android:color/white</color>
     <color name="chat_user_reply_background_color">#c8f0ff</color>
     <color name="chat_company_reply_background_color">#F5F5F5</color>
     <color name="gray">@android:color/darker_gray</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="orange">@android:color/holo_blue_light</color>
     <color name="background_tab_pressed">#6633B5E5</color>
+
+    <color name="colorBgUniversal">#040D14</color>
+
+    <color name="theme_color">#040D14</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_with20pacity">#33FFFFFF</color>
+    <color name="white_with50pacity">#80FFFFFF</color>
+    <color name="white_with70pacity">#B3FFFFFF</color>
+    <color name="white_with80pacity">#CCFFFFFF</color>
+    <color name="white_with30pacity">#4DFFFFFF</color>
+    <color name="white_with40pacity">#66FFFFFF</color>
+    <color name="white_with05pacity">#0DFFFFFF</color>
+    <color name="colorClickables">#37B4E4</color>
+    <color name="colorPrimary50opacity">#E6030A0F</color>
+    <color name="colorGrayListItem">#335D606A</color>
+    <color name="colorEditTextLine">#88FEFEFE</color>
+    <color name="startcolor">#ff2d9a59</color>
+    <color name="endcolor">#ff23729a</color>
+    <color name="centercolor">#ff42959a</color>
+
 </resources>

@@ -3,8 +3,47 @@
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
     <dimen name="activity_horizontal_margin">64dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="margin_6dp">6dp</dimen>
     <dimen name="profile_img_size">48dp</dimen>
+
+    <!-- font size-->
+    <dimen name="font_size_10sp">10sp</dimen>
+    <dimen name="font_size_16sp">16sp</dimen>
+    <dimen name="font_size_17sp">17sp</dimen>
+    <dimen name="font_size_18sp">18sp</dimen>
+    <dimen name="font_size_19sp">19sp</dimen>
+    <dimen name="font_size_20sp">20sp</dimen>
+    <dimen name="font_size_21sp">21sp</dimen>
+    <dimen name="font_size_22sp">22sp</dimen>
+    <dimen name="font_size_23sp">23sp</dimen>
+    <dimen name="font_size_24sp">24sp</dimen>
+    <dimen name="font_size_25sp">25sp</dimen>
+
+    <!-- margins -->
+    <dimen name="margin_1dp">1dp</dimen>
+    <dimen name="margin_2dp">2dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_14dp">14dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_18dp">18dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_22dp">22dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <dimen name="margin_26dp">26dp</dimen>
+    <dimen name="margin_34dp">34dp</dimen>
+    <dimen name="margin_40dp">40dp</dimen>
+    <dimen name="margin_42dp">42dp</dimen>
+    <dimen name="margin_44dp">44dp</dimen>
+    <dimen name="margin_48dp">48dp</dimen>
+    <dimen name="margin_54dp">54dp</dimen>
+    <dimen name="margin_64dp">64dp</dimen>
+    <dimen name="margin_68dp">68dp</dimen>
+    <dimen name="margin_72dp">72dp</dimen>
+    <dimen name="margin_74dp">74dp</dimen>
+    <dimen name="margin_76dp">76dp</dimen>
+    <dimen name="margin_128dp">128dp</dimen>
 </resources>

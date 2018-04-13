@@ -30,7 +30,6 @@ public class Register extends AppCompatActivity {
     String user, pass;
     TextView login;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

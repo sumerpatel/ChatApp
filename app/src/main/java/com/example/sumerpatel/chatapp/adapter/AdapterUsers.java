@@ -8,8 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.sumerpatel.chatapp.R;
 import com.example.sumerpatel.chatapp.interfaces.RecyclerViewClickListener;
+import com.example.sumerpatel.chatapp.utils.SharedPrefs;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,10 +29,12 @@ public class AdapterUsers extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<String> usersList;
     private Context context;
     private RecyclerViewClickListener mListener;
+    private JSONObject object;
 
-    public AdapterUsers(Context context, ArrayList<String> usersList, RecyclerViewClickListener listener){
+    public AdapterUsers(Context context, ArrayList<String> usersList, JSONObject obj, RecyclerViewClickListener listener){
         this.context = context;
         this.usersList = usersList;
+        this.object = obj;
         this.mListener = listener;
     }
 
@@ -38,11 +46,20 @@ public class AdapterUsers extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        String strUsername = usersList.get(position);
+        String strMobileNumber = usersList.get(position);
+        String strUsername = "", profilePic = "";
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
-            strUsername = strUsername.substring(0,1).toUpperCase() + strUsername.substring(1).toLowerCase();
+            try {
+                strUsername = object.getJSONObject(strMobileNumber).getString("name");
+                profilePic = object.getJSONObject(strMobileNumber).getString("profilePic");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //strUsername = strUsername.substring(0,1).toUpperCase() + strUsername.substring(1).toLowerCase();
             viewHolder.tvUsername.setText(strUsername);
+            if (profilePic != null && !profilePic.equalsIgnoreCase(""))
+                Picasso.with(context).load(profilePic).into(viewHolder.ivProfilePic);
         }
     }
 

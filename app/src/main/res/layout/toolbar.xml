@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relActionbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/action_bar_iv_left"
+        android:layout_width="55dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:paddingRight="@dimen/margin_14dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/back_icon" />
+
+    <com.example.sumerpatel.chatapp.customviews.Font300
+        android:id="@+id/toolbar_txt_title"
+        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/margin_64dp"
+        android:ellipsize="end"
+        android:fontFamily="sa"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text=""
+        android:textColor="@color/white_with80pacity"
+        android:textSize="@dimen/font_size_19sp" />
+
+    <com.example.sumerpatel.chatapp.customviews.Font100
+        android:id="@+id/action_bar_tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_14dp"
+        android:fontFamily="sa"
+        android:textColor="@color/colorClickables"
+        android:textSize="@dimen/font_size_18sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_with20pacity"
+        android:visibility="gone" />
+
+</RelativeLayout>

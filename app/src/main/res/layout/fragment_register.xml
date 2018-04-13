@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true">
+
+    <!--<ScrollView
+        android:id="@+id/frag_register_sv_layout_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/margin_18dp"
+            android:paddingRight="@dimen/margin_18dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_8dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/frag_register_iv_profile_pic"
+                    android:layout_width="@dimen/margin_64dp"
+                    android:layout_height="@dimen/margin_64dp"
+                    android:layout_margin="8dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/imgpsh_fullsize"
+                    app:civ_border_width="0dp" />
+
+                <ProgressBar
+                    android:id="@+id/frag_register_pb_profile_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/frag_register_iv_change_pic"
+                    android:layout_width="@dimen/margin_30dp"
+                    android:layout_height="@dimen/margin_30dp"
+                    android:layout_alignEnd="@+id/frag_register_iv_profile_pic"
+                    android:layout_marginEnd="-8dp"
+                    android:padding="4dp"
+                    android:src="@drawable/edit_icn" />
+
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/frag_register_til_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_20dp">
+
+                <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+                    android:id="@+id/frag_register_et_fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_4dp"
+                    android:drawableStart="@drawable/user_icon_prof"
+                    android:ems="6"
+                    android:hint="@string/hint_name"
+                    android:inputType="textCapSentences"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/colorEditTextLine"
+                    android:textSize="@dimen/font_size_18sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/frag_register_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_20dp">
+
+                <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+                    android:id="@+id/frag_register_et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_4dp"
+                    android:drawableStart="@drawable/email_icon"
+                    android:ems="6"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/colorEditTextLine"
+                    android:textSize="@dimen/font_size_18sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/frag_register_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_20dp">
+
+                <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+                    android:id="@+id/frag_register_et_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_4dp"
+                    android:drawableStart="@drawable/mobile_icon_prof"
+                    android:ems="6"
+                    android:hint="@string/hint_mobnum"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/colorEditTextLine"
+                    android:textSize="@dimen/font_size_18sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/frag_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_20dp">
+
+                <com.example.sumerpatel.chatapp.customviews.MyCustomEditText
+                    android:id="@+id/frag_register_et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/margin_4dp"
+                    android:drawableStart="@drawable/pin_icon_prof"
+                    android:ems="6"
+                    android:hint="@string/hint_password"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@color/colorEditTextLine"
+                    android:textSize="@dimen/font_size_18sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <com.example.sumerpatel.chatapp.customviews.Font500
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/margin_8dp"
+                android:text="@string/btn_register"
+                android:textColor="@color/colorClickables"
+                android:textSize="@dimen/font_size_20sp" />
+
+            <com.example.sumerpatel.chatapp.customviews.Font100
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:textColor="@color/white_with80pacity"
+                android:text="@string/click_here_to_login"
+                android:textSize="@dimen/font_size_20sp" />
+
+        </LinearLayout>
+   <!-- </ScrollView>-->
+
+</ScrollView>
